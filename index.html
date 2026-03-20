@@ -3,98 +3,346 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- SEO Meta Description -->
+  <meta name="description" content="Personal academic website of Philipp Svinger, PhD student in Mathematics at Bielefeld University. Research interests include partial differential equations and regularity theory." />
+  
   <title>Philipp Svinger</title>
-  <meta name="description" content="Personal page for Philipp Svinger, PhD student in mathematics at Bielefeld University. Advisor: Moritz Kassmann." />
+
   <style>
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      background: #f7f9fc;
+      color: #222;
       line-height: 1.6;
-      background-color: #ffffff;
-      color: #000000;
     }
-    h1, h2 {
-      color: #003366;
-      line-height: 1.2;
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
     }
+
     header {
+      background: #003366;
+      color: white;
+      padding: 20px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    /* New Header Flexbox Layout */
+    .header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-text {
+      flex: 1;
+    }
+
+    .header-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%; /* Makes the picture a perfect circle */
+      object-fit: cover; /* Ensures the image doesn't stretch */
+      border: 3px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    nav {
+      margin-top: 15px;
+    }
+
+    nav a {
+      color: white;
+      margin-right: 18px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05em;
+      letter-spacing: 0.02em;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      opacity: 0.85;
+    }
+
+    section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      color: #003366;
+    }
+
+    .paper {
       margin-bottom: 20px;
     }
-    footer {
-      margin-top: 40px;
-      border-top: 1px solid #ccc;
-      padding-top: 10px;
+
+    .paper-links a {
+      display: inline-block;
+      font-size: 0.85em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #e6eef7;
+      color: #003366;
+      text-decoration: none;
+      margin-right: 6px;
+      font-weight: 500;
+    }
+
+    .paper-links a:hover {
+      background: #d4e3f5;
+    }
+
+    .abstract {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      background: #f0f4f8;
+      border-left: 4px solid #003366;
+    }
+
+    /* Updated to apply to native buttons cleanly */
+    .toggle-link {
+      display: inline-block;
+      margin-top: 6px;
       font-size: 0.9em;
       color: #555;
+      cursor: pointer;
+      text-decoration: underline;
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-family: inherit;
     }
-    a {
+
+    .toggle-link:hover {
       color: #003366;
-      word-wrap: break-word;
     }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
     ul {
       padding-left: 20px;
     }
-    section {
-      margin-bottom: 25px;
+
+    a {
+      color: #003366;
     }
 
-    /* Mobile-friendly layout adjustments */
-    @media (max-width: 600px) {
-      body {
-        margin: 20px auto;
-        padding: 0 15px;
-        font-size: 16px;
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 700px) {
+      .two-column {
+        grid-template-columns: 1fr;
       }
-      h1 {
-        font-size: 1.6em;
+      nav a {
+        display: inline-block;
+        margin-bottom: 8px; /* Prevents cramped links on wrapping */
       }
-      h2 {
-        font-size: 1.3em;
-        margin-top: 1em;
+      /* Stacks the picture above your name on mobile */
+      .header-flex {
+        flex-direction: column-reverse;
+        text-align: center;
       }
-      ul {
-        padding-left: 16px;
+      .header-pic {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
       }
     }
   </style>
+
+  <script>
+    /* Fixed Logic: Check for 'block' rather than 'none' */
+    function toggleAbstract(id) {
+      const el = document.getElementById(id);
+      if (el.style.display === "block") {
+        el.style.display = "none";
+      } else {
+        el.style.display = "block";
+        if (window.MathJax) {
+          MathJax.typesetPromise([el]);
+        }
+      }
+    }
+  </script>
+
+  <!-- MathJax configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'],['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+
+  <!-- Load MathJax -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
+
 <body>
-  <header>
-    <h1>Philipp Svinger</h1>
-    <p>PhD student in Mathematics, Bielefeld University</p>
-    <p>Advisor: <a href="https://www.uni-bielefeld.de/fakultaeten/mathematik/ag/kassmann/" target="_blank">Prof. Dr. Moritz Kassmann</a></p>
-  </header>
 
-  <section id="about">
+<header>
+  <div class="container header-flex">
+    
+    <!-- Left Side: Text & Navigation -->
+    <div class="header-text">
+      <h1>Philipp Svinger</h1>
+      <p>PhD Student in Mathematics – Bielefeld University</p>
+
+      <nav>
+        <a href="#about-cv">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#teaching">Teaching</a> 
+        <a href="#contact">Contact</a>
+        <a href="#links">Links</a>  
+      </nav>
+    </div>
+
+    <!-- Right Side: Profile Picture -->
+    <div>
+      <img src="profile.jpg" alt="Philipp Svinger" class="header-pic" />
+    </div>
+
+  </div>
+</header>
+
+<div class="container">
+
+<section id="about-cv" class="two-column">
+  <div>
     <h2>About</h2>
-    <p>I am a PhD student in mathematics working at Bielefeld University. My research interests include partial differential equations, regularity theory, and nonlocal operators.</p>
-  </section>
+    <p>
+      I am a PhD student in mathematics at Bielefeld University.
+    </p>
+    <p><strong>Advisor</strong>: <a href="https://www.uni-bielefeld.de/fakultaeten/mathematik/ag/kassmann/" target="_blank">
+        Prof. Dr. Moritz Kassmann
+      </a></p>
+  </div>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: psvinger [at] math.uni-bielefeld.de</p>
-  </section>
-
-  <section id="publications">
-    <h2>Publications / Preprints</h2>
+  <div>
+    <h2>Short CV</h2>
     <ul>
-	<li><strong>Philipp Svinger, Marvin Weidner</strong>, <em>Dirichlet heat kernel estimates for parabolic nonlocal equations</em>, 2025. <a href="https://arxiv.org/abs/2512.01919" target="_blank">arXiv:2512.01919</a></li>
-      <li><strong>Philipp Svinger</strong>, <em>Boundary regularity for non-local operators with symmetric kernels and vanishing horizon</em>, 2025. <a href="https://arxiv.org/abs/2504.00567" target="_blank">arXiv:2504.00567</a></li>
+      <li>Since Oct. 2023: PhD student, Bielefeld University</li>
+      <li>2023: MSc Mathematics, Bielefeld University</li>
+      <li>2021: BSc Mathematics, Bielefeld University</li>
     </ul>
-  </section>
+  </div>
+</section>
 
-  <section id="links">
-    <h2>Links</h2>
+<section id="research">
+  <h2>Research</h2>
+  <p>My research focuses on partial differential equations, in particular:</p>
+  <ul>
+    <li>Regularity theory</li>
+    <li>Boundary behavior of solutions to nonlocal equations</li>
+    <li>Free boundary problems</li>
+  </ul>
+</section>
+
+<section id="publications">
+  <h2>Publications / Preprints</h2>
+
+  <!-- Paper 2 -->
+  <div class="paper">
+    <strong>Dirichlet heat kernel estimates for parabolic nonlocal equations</strong>, 
+    <em>Philipp Svinger, Marvin Weidner</em>, 2025.
+    
+    <div class="paper-links">
+      <a href="https://arxiv.org/abs/2512.01919" target="_blank">arXiv</a>
+      <a href="https://arxiv.org/pdf/2512.01919" target="_blank">PDF</a>
+    </div>
+
+    <!-- Replaced span with button for accessibility & added ▶ -->
+    <button class="toggle-link" onclick="toggleAbstract('abs2')">▶ Abstract</button>
+
+    <div id="abs2" class="abstract">
+      In this article we establish the optimal $C^s$ boundary regularity for solutions to nonlocal parabolic equations in divergence form in $C^{1,\alpha}$ domains and prove a higher order boundary Harnack principle in this setting. Our approach applies to a broad class of nonlocal operators with merely Hölder continuous coefficients, but our results are new even in the translation invariant case. As an application, we obtain sharp two-sided estimates for the associated Dirichlet heat kernel. Notably, our estimates cover nonlocal operators with time-dependent coefficients, which had remained open in the literature.
+    </div>
+  </div>
+
+  <!-- Paper 1 -->
+  <div class="paper">
+    <strong>Boundary regularity for non-local operators with symmetric kernels and vanishing horizon</strong>, 
+    <em>Philipp Svinger</em>, 2025.
+    
+    <div class="paper-links">
+      <a href="https://arxiv.org/abs/2504.00567" target="_blank">arXiv</a>
+      <a href="https://arxiv.org/pdf/2504.00567.pdf" target="_blank">PDF</a>
+    </div>
+
+    <!-- Replaced span with button for accessibility & added ▶ -->
+    <button class="toggle-link" onclick="toggleAbstract('abs1')">▶ Abstract</button>
+
+    <div id="abs1" class="abstract">
+      We prove optimal Hölder boundary regularity for a non-local operator with a singular, symmetric kernel that depends on the distance to the boundary of the underlying domain. Additionally, we prove higher boundary regularity of solutions.
+    </div>
+  </div>
+
+</section>
+
+<section id="teaching">
+  <h2>Teaching</h2>
+  <p>
+    Since 2019, I have regularly taught exercise sessions (tutorials) in mathematics courses at Bielefeld University:
+  </p>
+  <ul>
+    <li>Analysis, Linear Algebra</li>
+    <li>Geometry and Topology</li>
+    <li>Measure and Integration Theory</li>
+    <li>Functional Analysis, Regularity Theory</li>
+  </ul>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p><strong>Email</strong>: psvinger[at] math.uni-bielefeld.de</p>
+  <p><strong>Office</strong>: V4-218, UHG</p>
+</section>
+
+<section id="links">
+  <h2>Links</h2>
     <ul>
-      <li><a href="https://ekvv.uni-bielefeld.de/pers_publ/publ/PersonDetail.jsp?personId=439817394&lang=en" target="_blank">Bielefeld University profile</a></li>
-      <li><a href="https://scholar.google.com/citations?user=P5ZwPe4AAAAJ&hl=en" target="_blank">Google Scholar profile</a></li>
+      <li><a href="https://ekvv.uni-bielefeld.de/pers_publ/publ/PersonDetail.jsp?personId=439817394&lang=en" target="_blank">University Profile</a></li>
+      <li><a href="https://scholar.google.com/citations?user=P5ZwPe4AAAAJ&hl=en" target="_blank">Google Scholar Profile</a></li>
     </ul>
-  </section>
+</section>
 
-  <footer>
-    <p>© 2026 Philipp Svinger</p>
-  </footer>
+</div>
+
+<footer>
+  <p>© 2026 Philipp Svinger</p>
+</footer>
+
 </body>
 </html>
